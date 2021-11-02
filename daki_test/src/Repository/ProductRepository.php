@@ -22,9 +22,9 @@ class ProductRepository extends ServiceEntityRepository
 
     /**
      * Request to get products with the function 'search'
-     * @return Product[
+     * @return Product[]
      */
-    public function findWithSearch(search $searc)
+    public function findWithSearch(search $search)
     {
         $query = $this
             ->createQueryBuilder('p')
