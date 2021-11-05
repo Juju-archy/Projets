@@ -53,7 +53,7 @@
         <div class="text-right">
             <b>Number of products : </b>{{ cart|length }}<br>
             <b>Total : </b>{{ (total / 100)|number_format(2,',','.') }}<br>
-            <a href="" class="btn btn-success btn-block mt-3">Validate your cart</a>
+            <a href="{{ path('order') }}" class="btn btn-success btn-block mt-3">Validate your cart</a>
         </div>
     {% else %}
         <hr>

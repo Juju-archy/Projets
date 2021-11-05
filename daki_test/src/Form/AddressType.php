@@ -42,6 +42,7 @@ class AddressType extends AbstractType
             ])
             ->add('address', TextType::class, [
                 'label' => 'Address:',
+                'required' => false,
                 'attr' => [
                     'placeholder' => '8 Backer Street...'
                 ]
