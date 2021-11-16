@@ -13,13 +13,15 @@
             <h3>Our products</h3>
             <div class="row product-container">
                 {% for product in products %}
-                    <div class="col-md-2" style="padding:2em;">
-                        <a href="{{ path('display-prod', {'slug' : product.slug}) }}"><div class="product-item text-center">
+                    <div class="col-md-3" style="padding:2em;">
+                        <a href="{{ path('display-prod', {'slug' : product.slug}) }}">
+                            <div class="product-item text-center">
                                 <img src="/upload/{{ product.illustration }}/" class="img-fluid">
                                 <h5>{{ product.name }}</h5>
                                 <span class="product-subtitle">{{ product.subtitle }}</span>
                                 <span class="product-pice">{{ (product.price / 100)|number_format(2,',','.') }} €</span>
-                            </div></a>
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>

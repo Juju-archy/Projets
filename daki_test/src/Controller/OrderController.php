@@ -43,7 +43,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/command/summary", name="order_summary")
+     * @Route("/command/summary", name="order_summary",  methods={"POST"})
      */
     public function add(cart $cart, Request $request)
     {
@@ -83,18 +83,26 @@ class OrderController extends AbstractController
             foreach ($cart->getFull() as $product) {
                 $orderDetails = new OrderDetails();
                 $orderDetails->setMyOrder($order);
-                $orderDetails->setProduct($product->getName());
+                $orderDetails->setProduct($product['product']->getName());
                 $orderDetails->setQuantity($product['quantity']);
-                $orderDetails->setPrice($product['quantity']->getPrice());
-                $orderDetails->setTotal($product['quantity']->getPrice() * $product['quantity']);
+                $orderDetails->setPrice($product['product']->getPrice());
+                $orderDetails->setTotal($product['product']->getPrice() * $product['quantity']);
                 $this->entityManager->persist($orderDetails);
+
             }
 
-            $this->entityManager->flush();
-        }
+            //$this->entityManager->flush();
 
-        return $this->render('order/add.html.twig', [
-            'cart' => $cart->getFull()
-        ]);
+            if(!$order){
+                return $this->redirectToRoute('order');
+            }
+
+            return $this->render('order/add.html.twig', [
+                'cart'=>$cart->getFull(),
+                'carrier'=>$carriers,
+                'delivery'=>$delivery_content,
+            ]);
+        }
+        return $this->redirectToRoute('cart');
     }
 }

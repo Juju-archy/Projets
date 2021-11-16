@@ -23,7 +23,7 @@
     display: block;
     margin-bottom: 10px;
 }
-.product-item .product-pice {
+.product-item .product-price {
     font-size: 15px;
     font-weight: bold;
 }
@@ -55,4 +55,8 @@
 .order-summary {
     background-color: #f4f8ff;
     padding: 20px;
+}
+
+.col-form-label {
+    font-weight: bold;
 }

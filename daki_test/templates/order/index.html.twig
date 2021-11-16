@@ -11,6 +11,7 @@
         <div class="col-md-6">
             {% set formHtml %}
                 {{ form_start(form, {action:path('order_summary')}) }}
+                    <a href="{{ path('add_address') }}">Add a new address</a>
                 {{ form_end(form) }}
             {% endset %}
             {{ formHtml|replace({'[br]' : '<br>'})|raw }}
