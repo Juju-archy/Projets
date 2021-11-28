@@ -57,7 +57,7 @@ class StripeController extends AbstractController
 
         //dd($product_for_stripe);
 
-        Stripe::setApiKey('pk_test_51Jvi6QCJXZiU3n5ADlJ8hKYWIvWD4XiHxSTOomg4Tfy42NQZeu2EbPwKaFe50z6qZUy13s0qeLkLPBWWNjPmzyuB00Gh03Cdfb');
+        Stripe::setApiKey('sk_test_51Jvi6QCJXZiU3n5Amx7XJ2A8v55a5dIKqBTwnX3dW0c4ScRNsy4QygvmgSMc2Wd0Edk2QaRE5iBBIfznah7hjqOC009hc0nVur');
 
         $checkout_session = Session::create([
             'customer_email' => $this->getUser()->getEmail(),
