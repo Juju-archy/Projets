@@ -20,7 +20,7 @@ class StripeController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Cart $cart, $reference)
     {
         $product_for_stripe = [];
-        $YOUR_DOMAIN = 'http://localhost:8080';
+        $YOUR_DOMAIN = 'https://daki-suki.com';
 
         $order = $entityManager->getRepository(Order::class)->findOneByReference($reference);
 
@@ -36,7 +36,7 @@ class StripeController extends AbstractController
                     'unit_amount' => $product->getPrice(),
                     'product_data' => [
                         'name' => $product->getProduct(),
-                        'images' => [$YOUR_DOMAIN."/uploads/".$product_object->getIllustration()],
+                        'images' => [$YOUR_DOMAIN."/public/uploads/".$product_object->getIllustration()],
                     ],
                 ],
                 'quantity' => $product->getQuantity(),
@@ -57,7 +57,7 @@ class StripeController extends AbstractController
 
         //dd($product_for_stripe);
 
-        Stripe::setApiKey('sk_test_51Jvi6QCJXZiU3n5Amx7XJ2A8v55a5dIKqBTwnX3dW0c4ScRNsy4QygvmgSMc2Wd0Edk2QaRE5iBBIfznah7hjqOC009hc0nVur');
+        Stripe::setApiKey('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');
 
         $checkout_session = Session::create([
             'customer_email' => $this->getUser()->getEmail(),
