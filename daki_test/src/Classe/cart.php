@@ -17,6 +17,9 @@ class cart
         $this->session = $session;
     }
 
+    /*
+     * Add item on cart
+     */
     public function add(int $id)
     {
         $cart = $this->session->get('cart', []);
@@ -30,16 +33,25 @@ class cart
         $this->session->set('cart', $cart);
     }
 
+    /*
+     * Get the cart
+     */
     public function get()
     {
         return $this->session->get('cart');
     }
 
+    /*
+     * Remove the cart
+     */
     public function remove()
     {
         return $this->session->remove('cart');
     }
 
+    /*
+     * delete item on cart
+     */
     public function delete($id)
     {
         $cart = $this->session->get('cart', []);
@@ -49,6 +61,9 @@ class cart
         return $this->session->set('cart', $cart);
     }
 
+    /*
+     * Decrease cart
+     */
     public function decrease(int $id)
     {
         $cart = $this->session->get('cart', []);
@@ -62,6 +77,9 @@ class cart
         return $this->session->set('cart', $cart);
     }
 
+    /*
+     * Get product on cart
+     */
     public function getFull()
     {
         $cartComplete = [];

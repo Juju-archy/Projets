@@ -6,9 +6,17 @@
     <h1>My order - n°{{ order.reference }}</h1>
     <a href="{{ path('account_order') }}" class="btn btn-success">Back</a><br>
     <hr>
+    <strong>State:</strong> {% if order.state == 1 %}
+            Payment accepted
+        {% elseif order.state == 2 %}
+            Preparing order
+        {% elseif order.state == 3 %}
+            Delivery
+        {% endif %}<br>
     <strong>Command at:</strong> {{ order.createdAt|date('d/m/Y') }}<br>
     <strong>Reference:</strong> {{ order.reference }}<br>
     <strong>Details:</strong>
+
     <table class="table mt-4">
         <thead>
         <tr>
@@ -21,7 +29,13 @@
         <tbody>
         {% for product in order.orderDetails %}
             <tr>
-                <td>{{ product.product }}</td>
+                <td>
+                    {% if product.slug != null %}
+                        <a href="/product/{{ product.slug }}">{{ product.product }}</a>
+                    {% else %}
+                        {{ product.product }}
+                    {% endif %}
+                </td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ (product.price / 100)|number_format(2, ',', '.') }}€</td>
                 <td>{{ (product.total/100)|number_format(2, ',', '.') }}€</td>

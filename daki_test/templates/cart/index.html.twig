@@ -33,9 +33,11 @@
                             <img src="{{ asset('assets/img/moins.png') }}" height="12px" alt="delete my product">
                         </a>
                         {{ product.quantity }}
-                        <a href="{{ path('add_to_cart', {'id' : product.product.id}) }}">
-                            <img src="{{ asset('assets/img/plus.png') }}" height="12px" alt="add my product">
-                        </a>
+                        {% if product.quantity < product.product.quantity  %}
+                            <a href="{{ path('add_to_cart', {'id' : product.product.id}) }}">
+                                <img src="{{ asset('assets/img/plus.png') }}" height="12px" alt="add my product">
+                            </a>
+                        {% endif %}
                     </td>
                     <td>{{ (product.product.price / 100)|number_format(2,',','.') }} €</td>
                     <td>{{ ((product.product.price * product.quantity) / 100)|number_format(2,',','.') }} €</td>

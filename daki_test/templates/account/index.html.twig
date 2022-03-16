@@ -4,8 +4,21 @@
 
 {% block content %}
     <h1>Welcome {{ app.user.firstname }}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{{ path('account_password') }}" class="btn btn-info">Modify my password</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ path('account_address') }}" class="btn btn-info">My address</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ path('account_order') }}" class="btn btn-info">Command</a>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <hr>
+        <a href="{{ path('admin') }}" class="btn btn-info">Admin access backoffice?</a><br>
+    {% endif %}
 
-    - <a href="{{ path('account_password') }}">Modify my password</a><br>
-    - <a href="{{ path('account_address') }}">My address</a><br>
-    - <a href="{{ path('account_order') }}">Command</a><br>
 {% endblock %}

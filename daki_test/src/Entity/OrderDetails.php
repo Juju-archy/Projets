@@ -18,8 +18,8 @@ class OrderDetails
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $myOrder;
 
@@ -42,6 +42,16 @@ class OrderDetails
      * @ORM\Column(type="float")
      */
     private $total;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Slug;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $weigthTotal;
 
     public function __toString()
     {
@@ -109,6 +119,30 @@ class OrderDetails
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(string $Slug): self
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    public function getWeigthTotal(): ?int
+    {
+        return $this->weigthTotal;
+    }
+
+    public function setWeigthTotal(int $weigthTotal): self
+    {
+        $this->weigthTotal = $weigthTotal;
 
         return $this;
     }

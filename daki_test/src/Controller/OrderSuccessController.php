@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Classe\cart;
+use App\Classe\mail;
 use App\Entity\Order;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,21 +31,27 @@ class OrderSuccessController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        if(!$order->getIsPaid()) {
-            //Vider le panier
+        if($order->getState() == 0) {
+            //Modify the statut to 1 'Payed'
+            $order->setState(1);
+
+            foreach($cart->getFull() as $e) {
+                $productQt = $this->entityManager->getRepository(Product::class)->findOneById($e['product']->getId());
+                $productQt->setQuantity(($e['product']->getquantity()) - ($e['quantity']));
+            }
+
+            //delete the cart
             $cart->remove();
 
-            //Modifier le statut isPaid à 1
-            $order->setIsPaid(1);
             $this->entityManager->flush();
 
-            //Envoyer email client confirmation
-
+            //Send a confirmation email to the customer
+            $email = new mail();
+            $content = "Welcome ".$order->getUser()->getFirstname().".</br><br>Thanks for your order n°".$order->getReference().".</br>";
+            $email->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), 'Order success - Daki Suki', $content);
         }
 
-        //Afficher les informations utilisateur de la commande
-
-
+        //Display informations about the order
         return $this->render('order_success/index.html.twig', [
             'order' => $order,
         ]);

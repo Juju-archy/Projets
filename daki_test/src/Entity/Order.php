@@ -21,8 +21,8 @@ class Order
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
     private $user;
 
@@ -47,12 +47,12 @@ class Order
     private $delivery;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder", cascade={"remove"})
      */
     private $orderDetails;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPaid;
 
@@ -65,6 +65,16 @@ class Order
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $stripSessionId;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalWeight;
 
     public function __construct()
     {
@@ -175,7 +185,7 @@ class Order
         return $this;
     }
 
-    public function getIsPaid(): ?bool
+    /*public function getIsPaid(): ?bool
     {
         return $this->isPaid;
     }
@@ -185,7 +195,7 @@ class Order
         $this->isPaid = $isPaid;
 
         return $this;
-    }
+    }*/
 
     public function getReference(): ?string
     {
@@ -207,6 +217,30 @@ class Order
     public function setStripSessionId(?string $stripSessionId): self
     {
         $this->stripSessionId = $stripSessionId;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getTotalWeight(): ?int
+    {
+        return $this->totalWeight;
+    }
+
+    public function setTotalWeight(int $totalWeight): self
+    {
+        $this->totalWeight = $totalWeight;
 
         return $this;
     }

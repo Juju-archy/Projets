@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\mail;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +29,10 @@ class OrderCancelController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        //Envoyer mail utilisateur pour indiquer échec de paiement
+        //Send an error email payment to the customer
+        $email = new mail();
+        $content = "Welcome ".$order->getUser()->getFirstname().".</br><br>We apologize but your order is canceled.<br>";
+        $email->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), 'Order cancel - Daki Suki', $content);
 
         return $this->render('order_cancel/index.html.twig', [
             'order' => $order

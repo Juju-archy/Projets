@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Email address',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'julie@dakisuki.fr'
+                    'placeholder' => 'julie@daki-suki.com'
                 ]
             ])
             ->add('firstname', TextType::class, [
@@ -64,6 +64,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'I agree to be 18 years old',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
@@ -95,7 +96,7 @@ class RegistrationFormType extends AbstractType
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 128,
                     ]),
                 ],
             ])

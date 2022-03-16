@@ -27,14 +27,10 @@ class Carrier
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
 
     public function __toString()
     {
-        return $this->getName().' : '.number_format(($this->getPrice() / 100),2,',','.').' €'.'[br]'.$this->getDescription();
+        return $this->getName().' : '.'[br]'.$this->getDescription();
     }
 
     public function getId(): ?int
@@ -62,18 +58,6 @@ class Carrier
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
